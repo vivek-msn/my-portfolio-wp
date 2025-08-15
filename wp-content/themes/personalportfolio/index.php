@@ -391,6 +391,7 @@ get_header();?>
                                 <h5 class="text-white mb-0">FOOD</h5>
                                 <div class="border_line"></div>
                                 <p class="text-white">Enjoy your social life together</p>
+                                <p> Testing deploy</p>
                             </div>
                         </div>
                     </div>
