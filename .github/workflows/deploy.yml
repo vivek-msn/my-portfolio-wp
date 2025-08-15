@@ -20,4 +20,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: wp-content/themes/personalportfolio/
           server-dir: /home/ithiebuz/viveksaini.in/wp-content/themes/personalportfolio/
-          dangerous-clean-slate: true
+          dry-run: true
