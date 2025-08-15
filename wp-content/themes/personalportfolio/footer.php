@@ -12,25 +12,24 @@
 
 <!-- Footer section  -->
 <section id="contact" class="footer_wrapper mt-3 mt-md-0">
-<div class="container">
-            <div class="row">
-                <div class="col-12 newsletter text-center px-4">
-                    <div>
-                        <h3 class="text-white">get update from anywhere</h3>
-                        <p class="text-white">Bearing Void gathering light light his evening unto dont afraid</p>
-
-                        <form class="row g-3 justify-content-center mt-4">
-                            <div class="col col-sm-6 col-lg-4">
-                                <input type="email" class="form-control" placeholder="Email address">
-                            </div>
-                            <div class="col col-auto">
-                                <button class="main-btn secondary-btn border-white mb-3">Get Started</button>
-                            </div>
-                        </form>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 newsletter text-center px-4">
+                <div>
+                    <h3 class="text-white">get update from anywhere</h3>
+                    <p class="text-white">Bearing Void gathering light light his evening unto dont afraid</p>
+                    <form class="row g-3 justify-content-center mt-4">
+                        <div class="col col-sm-6 col-lg-4">
+                            <input type="email" class="form-control" placeholder="Email address">
+                        </div>
+                        <div class="col col-auto">
+                            <button class="main-btn secondary-btn border-white mb-3">Get Started</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     <div class="container mt-5">
         <div class="row align-items-center justify-content-center">
             <div class="col-12 text-center">
@@ -49,7 +48,7 @@
             </div>
             <div class="col-lg-8 col-sm-12">
                 <p class="footer-text text-center my-2">Copyright © <?php echo date('Y'); ?> All rights reserved | This template
-                    is made with <i class="fa-solid fa-heart" style="color: #ea1f1f;"></i> by <a href="#">iThink Services</a>
+                    is made with <i class="fa-solid fa-heart" style="color: #ea1f1f;"></i> by <a href="#">iThink Team</a>
                 </p>
             </div>
         </div>
