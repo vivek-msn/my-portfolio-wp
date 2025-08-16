@@ -19,5 +19,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: wp-content/themes/personalportfolio/
-          server-dir: ../wp-content/themes/personalportfolio/
+          server-dir: /viveksaini.in/wp-content/themes/personalportfolio/
           dry-run: true
