@@ -12,7 +12,7 @@
 
 <!-- Footer section  -->
 <section id="contact" class="footer_wrapper mt-3 mt-md-0">
-    <div class="container">
+    <div class="container" style="background:blueviolet;">
         <div class="row">
             <div class="col-12 newsletter text-center px-4">
                 <div>
