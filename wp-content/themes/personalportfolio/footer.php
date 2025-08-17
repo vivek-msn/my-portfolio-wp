@@ -48,7 +48,7 @@
             </div>
             <div class="col-lg-8 col-sm-12">
                 <p class="footer-text text-center my-2">Copyright © <?php echo date('Y'); ?> All rights reserved | This template
-                    is made with <i class="fa-solid fa-heart" style="color: #ea1f1f;"></i> by <a href="#">iThink Team</a>
+                    is made with <i class="fa-solid fa-heart" style="color: #ea1f1f;"></i> by <a href="#">iThink Team 2025</a>
                 </p>
             </div>
         </div>
