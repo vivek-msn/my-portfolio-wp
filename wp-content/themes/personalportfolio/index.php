@@ -20,7 +20,7 @@ get_header();?>
                 <div class="col-lg-7 order-lg-1 order-2 banner-content">
                     <h2 class="text-uppercase position-relative">Hello</h2>
                     <h1 class="text-uppercase">I am Vivek Saini</h1>
-                    <h5 class="text-uppercase">Wordpress Backend Developer</h5>
+                    <h5 class="text-uppercase">Full Stack WordPress Developer</h5>
                     <div class="mt-5">
                         <a class="main-btn primary-btn" href="#">Hire Me</a>
                         <a class="main-btn secondary-btn ms-4" href="https://drive.usercontent.google.com/download?id=13jjRN5k4FdHeARLe1suvXzjHnqfsLV3l&export=download&authuser=0&confirm=t&uuid=a64094a8-36ee-47cc-9277-02e431b766a0&at=APZUnTXUtySCUnxaHw8IqYQgmhww:1708966137870">Get CV</a>
