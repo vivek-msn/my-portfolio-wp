@@ -350,16 +350,7 @@ get_header();?>
     <!-- Portfolio Section exit  -->
 
     <!-- Blog Section  -->
-     <?php
-        $categories = get_categories(); // fetch all categories
-        foreach ($categories as $category) :
-
-            // Get category data
-            $cat_name = $category->name;               // Category name
-            $cat_desc = $category->description;       // Category description
-            $cat_link = get_category_link($category->term_id); // Link to category archive
-            $cat_image = get_term_meta($category->term_id, 'category-image-id', true); // Custom image (from step 1 & 2)
-    ?>
+    
 
     <section id="blog" class="blog_wrapper">
         <div class="container">
@@ -370,6 +361,16 @@ get_header();?>
                             class="d-none d-lg-block">
                         is in beast beginning signs open god you're gathering ithe</p>
                 </div>
+                 <?php
+        $categories = get_categories(); // fetch all categories
+        foreach ($categories as $category) :
+
+            // Get category data
+            $cat_name = $category->name;               // Category name
+            $cat_desc = $category->description;       // Category description
+            $cat_link = get_category_link($category->term_id); // Link to category archive
+            $cat_image = get_term_meta($category->term_id, 'category-image-id', true); // Custom image (from step 1 & 2)
+    ?>
                <div class="col-lg-3 col-sm-6 mb-4">
                     <div class="card rounded-0 border-0 p-0">
                         <?php if ($cat_image) : ?>
