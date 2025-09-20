@@ -383,7 +383,6 @@ get_header();?>
                                 <h5 class="text-white mb-0"><?php echo esc_html($cat_name); ?></h5>
                                 <div class="border_line"></div>
                                 <p class="text-white"><?php echo esc_html($cat_desc); ?></p>
-                                <a href="<?php echo esc_url($cat_link); ?>" class="btn btn-outline-light btn-sm mt-2">View Posts</a>
                             </div>
                         </div>
                     </div>
