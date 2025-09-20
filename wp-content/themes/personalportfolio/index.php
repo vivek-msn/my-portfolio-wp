@@ -350,6 +350,17 @@ get_header();?>
     <!-- Portfolio Section exit  -->
 
     <!-- Blog Section  -->
+     <?php
+        $categories = get_categories(); // fetch all categories
+        foreach ($categories as $category) :
+
+            // Get category data
+            $cat_name = $category->name;               // Category name
+            $cat_desc = $category->description;       // Category description
+            $cat_link = get_category_link($category->term_id); // Link to category archive
+            $cat_image = get_term_meta($category->term_id, 'category-image-id', true); // Custom image (from step 1 & 2)
+    ?>
+
     <section id="blog" class="blog_wrapper">
         <div class="container">
             <div class="row">
@@ -359,18 +370,25 @@ get_header();?>
                             class="d-none d-lg-block">
                         is in beast beginning signs open god you're gathering ithe</p>
                 </div>
-                <div class="col-lg-3 col-sm-6 mb-4">
+               <div class="col-lg-3 col-sm-6 mb-4">
                     <div class="card rounded-0 border-0 p-0">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/blog/blog.webp" alt="blog" class="img-fluid">
+                        <?php if ($cat_image) : ?>
+                            <img src="<?php echo esc_url($cat_image); ?>" alt="<?php echo esc_attr($cat_name); ?>" class="img-fluid">
+                        <?php else: ?>
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/blog/blog.webp" alt="blog" class="img-fluid">
+                        <?php endif; ?>
+                        
                         <div class="blog_details">
                             <div class="blog_text text-center">
-                                <h5 class="text-white mb-0">Social Life</h5>
+                                <h5 class="text-white mb-0"><?php echo esc_html($cat_name); ?></h5>
                                 <div class="border_line"></div>
-                                <p class="text-white">Enjoy your social life together</p>
+                                <p class="text-white"><?php echo esc_html($cat_desc); ?></p>
+                                <a href="<?php echo esc_url($cat_link); ?>" class="btn btn-outline-light btn-sm mt-2">View Posts</a>
                             </div>
                         </div>
                     </div>
                 </div>
+<!-- 
                 <div class="col-lg-3 col-sm-6 mb-4">
                     <div class="card rounded-0 border-0 p-0">
                         <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/blog/blog1.webp" alt="blog" class="img-fluid">
@@ -407,11 +425,11 @@ get_header();?>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
     <!-- Blog Section exit  -->
-     <?php get_footer(); ?>
-
-  
+    
+    <?php get_footer(); ?>
