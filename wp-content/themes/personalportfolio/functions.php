@@ -58,3 +58,42 @@ add_action('wp_enqueue_scripts', 'personal_portfolio_scripts');
 
 // // Hook the function to wp_enqueue_scripts
 // add_action('wp_enqueue_scripts', 'add_custom_inline_styles');
+// ----------------- CATEGORY IMAGE CUSTOM FIELD -----------------
+
+// Step 1: Add image field in category add/edit page
+add_action('category_add_form_fields', 'add_category_image_field', 10, 2);
+add_action('category_edit_form_fields', 'edit_category_image_field', 10, 2);
+
+function add_category_image_field($taxonomy) {
+    ?>
+    <div class="form-field term-group">
+        <label for="category-image-id">Category Image</label>
+        <input type="text" id="category-image-id" name="category-image-id" value="">
+        <p class="description">Enter image URL for this category</p>
+    </div>
+    <?php
+}
+
+function edit_category_image_field($term) {
+    $image_id = get_term_meta($term->term_id, 'category-image-id', true);
+    ?>
+    <tr class="form-field term-group-wrap">
+        <th scope="row"><label for="category-image-id">Category Image</label></th>
+        <td>
+            <input type="text" id="category-image-id" name="category-image-id" value="<?php echo esc_attr($image_id); ?>">
+            <p class="description">Enter image URL for this category</p>
+        </td>
+    </tr>
+    <?php
+}
+
+// Step 2: Save the field
+add_action('created_category', 'save_category_image', 10, 2);
+add_action('edited_category', 'save_category_image', 10, 2);
+
+function save_category_image($term_id, $tt_id) {
+    if (isset($_POST['category-image-id']) && '' !== $_POST['category-image-id']) {
+        $image = sanitize_text_field($_POST['category-image-id']);
+        update_term_meta($term_id, 'category-image-id', $image);
+    }
+}
