@@ -14,9 +14,9 @@ jobs:
       - name: Deploy to Staging
         uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          server: ${{ secrets.STAGING_FTP_SERVER }}
-          username: ${{ secrets.STAGING_FTP_USERNAME }}
-          password: ${{ secrets.STAGING_FTP_PASSWORD }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: wp-content/themes/personalportfolio/
           server-dir: staging.viveksaini.in/wp-content/themes/personalportfolio/
           protocol: ftp
