@@ -13,10 +13,11 @@ $cat_image = get_term_meta($category->term_id, 'category_image', true);
                 <h2><?php single_cat_title(); ?></h2>
                 <p><?php echo category_description(); ?></p>
             </div>
-    <?php 
-$category = get_queried_object();
-$cat_image = get_term_meta($category->term_id, 'category_image', true);
-?>
+<?php if ($cat_image): ?>
+    <div class="col-12 text-center mb-4">
+        <img src="<?php echo esc_url($cat_image); ?>" alt="<?php echo esc_attr($category->name); ?>" class="img-fluid">
+    </div>
+<?php endif; ?>
 
             <!-- Posts Loop -->
             <?php if(have_posts()) : ?>
