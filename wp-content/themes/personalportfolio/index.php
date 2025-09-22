@@ -373,6 +373,7 @@ get_header();?>
     ?>
                <div class="col-lg-3 col-sm-6 mb-4">
                     <div class="card rounded-0 border-0 p-0">
+                        <a href="<?php echo esc_url($cat_link); ?>" class="d-block category-btn">
                         <?php if ($cat_image) : ?>
                             <img src="<?php echo esc_url($cat_image); ?>" alt="<?php echo esc_attr($cat_name); ?>" class="img-fluid">
                         <?php else: ?>
