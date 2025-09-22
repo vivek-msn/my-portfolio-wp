@@ -33,6 +33,11 @@ function personal_portfolio_scripts() {
 
 add_action('wp_enqueue_scripts', 'personal_portfolio_scripts');
 
+// Add theme support for Featured Images
+add_theme_support('post-thumbnails');
+
+// (optional) set default image sizes
+set_post_thumbnail_size(600, 400, true);
 
 
 // function add_custom_inline_styles() {
