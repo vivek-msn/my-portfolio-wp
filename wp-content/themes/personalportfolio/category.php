@@ -5,9 +5,18 @@
         <div class="row">
             <!-- Category Title & Description -->
             <div class="col-12 text-center mb-5">
+                <?php 
+$category = get_queried_object();
+$cat_image = get_term_meta($category->term_id, 'category_image', true);
+?>
+
                 <h2><?php single_cat_title(); ?></h2>
                 <p><?php echo category_description(); ?></p>
             </div>
+    <?php 
+$category = get_queried_object();
+$cat_image = get_term_meta($category->term_id, 'category_image', true);
+?>
 
             <!-- Posts Loop -->
             <?php if(have_posts()) : ?>
