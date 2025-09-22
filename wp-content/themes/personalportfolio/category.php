@@ -26,8 +26,8 @@
             <!-- Posts Loop -->
             <?php if(have_posts()) : ?>
                 <?php while(have_posts()) : the_post(); ?>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                        <div class="card rounded-0 border-0 p-0">
+                    <div class="col-12 col-sm-6 mb-4">
+                        <div class="card mb-4  flex-row rounded-0 border-0 p-0">
                             <!-- Post Thumbnail -->
                             <?php if(has_post_thumbnail()): ?>
                                 <?php the_post_thumbnail('full', ['class'=>'img-fluid']); ?>
@@ -37,7 +37,7 @@
                                      class="img-fluid">
                             <?php endif; ?>
 
-                            <div class="blog_details text-center">
+                            <div class="col-md-8 p-3">
                                 <h5 class="text-dark mb-0"><?php the_title(); ?></h5>
                                 <div class="border_line"></div>
                                 <p class="text-dark"><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
