@@ -349,8 +349,7 @@ get_header();?>
     </section>
     <!-- Portfolio Section exit  -->
 
-    <!-- Blog Section  -->
-    
+    <!-- Blog Section  -->   
 
     <section id="blog" class="blog_wrapper">
         <div class="container">
@@ -362,15 +361,14 @@ get_header();?>
                         is in beast beginning signs open god you're gathering ithe</p>
                 </div>
                  <?php
-        $categories = get_categories(); // fetch all categories
-        foreach ($categories as $category) :
-
-            // Get category data
-            $cat_name = $category->name;               // Category name
-            $cat_desc = $category->description;       // Category description
-            $cat_link = get_category_link($category->term_id); // Link to category archive
-            $cat_image = get_term_meta($category->term_id, 'category-image-id', true); // Custom image (from step 1 & 2)
-    ?>
+                    $categories = get_categories(); // fetch all categories
+                    foreach ($categories as $category) :
+                    // Get category data
+                    $cat_name = $category->name;               // Category name
+                    $cat_desc = $category->description;       // Category description
+                    $cat_link = get_category_link($category->term_id); // Link to category archive
+                    $cat_image = get_term_meta($category->term_id, 'category-image-id', true); // Custom image (from step 1 & 2)
+                 ?>
                <div class="col-lg-3 col-sm-6 mb-4">
                     <div class="card rounded-0 border-0 p-0">
                         <a href="<?php echo esc_url($cat_link); ?>" class="d-block category-btn">
@@ -387,46 +385,9 @@ get_header();?>
                                 <p class="text-white"><?php echo esc_html($cat_desc); ?></p>
                             </div>
                         </div>
+                        </a>
                     </div>
                 </div>
-<!-- 
-                <div class="col-lg-3 col-sm-6 mb-4">
-                    <div class="card rounded-0 border-0 p-0">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/blog/blog1.webp" alt="blog" class="img-fluid">
-                        <div class="blog_details">
-                            <div class="blog_text text-center">
-                                <h5 class="text-white mb-0">POLITICS</h5>
-                                <div class="border_line"></div>
-                                <p class="text-white">Enjoy your social life together</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 mb-4">
-                    <div class="card rounded-0 border-0 p-0">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/blog/blog2.webp" alt="blog" class="img-fluid">
-                        <div class="blog_details">
-                            <div class="blog_text text-center">
-                                <h5 class="text-white mb-0">FOOD</h5>
-                                <div class="border_line"></div>
-                                <p class="text-white">Enjoy your social life together</p>
-                                <p> Testing deploy</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 mb-4">
-                    <div class="card rounded-0 border-0 p-0">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/blog/blog.webp" alt="blog" class="img-fluid">
-                        <div class="blog_details">
-                            <div class="blog_text text-center">
-                                 <h5 class="text-white mb-0">Social Life</h5>
-                                <div class="border_line"></div>
-                                <p class="text-white">Enjoy your social life together</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 <?php endforeach; ?>
             </div>
         </div>
