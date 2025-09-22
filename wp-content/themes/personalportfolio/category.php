@@ -38,9 +38,9 @@
                             <?php endif; ?>
 
                             <div class="blog_details text-center">
-                                <h5 class="text-white mb-0"><?php the_title(); ?></h5>
+                                <h5 class="text-dark mb-0"><?php the_title(); ?></h5>
                                 <div class="border_line"></div>
-                                <p class="text-white"><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
+                                <p class="text-dark"><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
                                 <a href="<?php the_permalink(); ?>" class="btn btn-outline-light btn-sm mt-2">Read More</a>
                             </div>
                         </div>
