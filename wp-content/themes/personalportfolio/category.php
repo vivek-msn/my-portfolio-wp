@@ -26,8 +26,9 @@
             <!-- Posts Loop -->
             <?php if(have_posts()) : ?>
                 <?php while(have_posts()) : the_post(); ?>
-                    <div class="col-12 col-sm-6 mb-4">
+                    <div class="col-12 mb-4">
                         <div class="card mb-4  flex-row rounded-0 border-0 p-0">
+                             <div class="col-md-3 mb-3 mb-md-0"> <!-- 4/12 on desktop, full width on mobile -->
                             <!-- Post Thumbnail -->
                             <?php if(has_post_thumbnail()): ?>
                                 <?php the_post_thumbnail('full', ['class'=>'img-fluid']); ?>
@@ -36,19 +37,19 @@
                                      alt="blog" 
                                      class="img-fluid">
                             <?php endif; ?>
-
+                            </div>
                             <div class="col-md-8 p-3">
                                 <h5 class="text-dark mb-0"><?php the_title(); ?></h5>
                                 <div class="border_line"></div>
                                 <p class="text-dark"><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
-                                <a href="<?php the_permalink(); ?>" class="btn btn-outline-light btn-sm mt-2">Read More</a>
+                                <a href="<?php the_permalink(); ?>" class="btn btn-outline-dark btn-sm mt-2">Read More</a>
                             </div>
                         </div>
                     </div>
                 <?php endwhile; ?>
 
                 <!-- Pagination -->
-                <div class="col-12 mt-4">
+                <div class="col-12 mt-1">
                     <?php
                         the_posts_pagination(array(
                             'mid_size'  => 2,

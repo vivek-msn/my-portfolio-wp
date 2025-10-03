@@ -7,6 +7,9 @@
  * @package Personal Portfolio
  */
 
+require_once __DIR__ . '/vendor/autoload.php';
+
+
 // Enqueue scripts and styles
 function personal_portfolio_scripts() {
 
@@ -102,3 +105,29 @@ function save_category_image($term_id, $tt_id) {
         update_term_meta($term_id, 'category-image-id', $image);
     }
 }
+add_action('init', function () {
+    if (isset($_GET['generate_fake_posts'])) {
+        $faker = Faker\Factory::create();
+
+        for ($i = 0; $i < 10; $i++) {
+            wp_insert_post([
+                'post_title'   => $faker->sentence,
+                'post_content' => $faker->paragraphs(5, true),
+                'post_status'  => 'publish',
+                'post_type'    => 'post',
+            ]);
+        }
+
+        echo "✅ 10 Fake posts created!";
+        exit;
+    }
+});
+
+add_action('wp_footer', function () {
+    if (current_user_can('administrator')) { // Only admin sees it
+        global $template;
+        echo '<div style="position:fixed;bottom:0;left:0;background:#000;color:#fff;padding:5px;z-index:9999;">';
+        echo 'Current Template: ' . basename($template);
+        echo '</div>';
+    }
+});

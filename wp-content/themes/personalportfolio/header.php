@@ -26,7 +26,7 @@
 
     <!-- Navbar section  -->
     <header class="header_wrapper">
-        <nav class="navbar navbar-expand-lg fixed-top">
+        <nav class="navbar navbar-expand-lg fixed-top py-1">
             <div class="container">
               <a class="navbar-brand" href="<?php echo home_url(); ?>">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/logo.png" alt="logo" class="img-fluid">

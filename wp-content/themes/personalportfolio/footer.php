@@ -12,6 +12,9 @@
 
 <!-- Footer section  -->
 <section id="contact" class="footer_wrapper mt-3 mt-md-0">
+    <?php
+    // Only show newsletter on home page
+    if( is_front_page(  ) || is_home() ):?>
     <div class="container" style="background:blueviolet;">
         <div class="row">
             <div class="col-12 newsletter text-center px-4">
@@ -30,6 +33,7 @@
             </div>
         </div>
     </div>
+    <?php endif; ?>
     <div class="container mt-5">
         <div class="row align-items-center justify-content-center">
             <div class="col-12 text-center">

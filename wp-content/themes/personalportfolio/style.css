@@ -446,3 +446,63 @@ p{
 .footer_wrapper .footer-text a{
     color: var(--primary-color);
 }
+
+/* Single Blog Page */
+.single-blog-page {
+    background-color: #f8f9fa; /* Light grey background */
+    color: #333;               /* Text color */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.8;
+}
+
+/* Post title */
+.single-blog-page .post-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #222;
+}
+
+/* Meta info */
+.single-blog-page .post-meta {
+    font-size: 0.9rem;
+}
+
+/* Post content */
+.single-blog-page .post-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+}
+
+/* Links inside post */
+.single-blog-page .post-content a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.single-blog-page .post-content a:hover {
+    text-decoration: underline;
+}
+
+/* Optional: images inside blog */
+.single-blog-page .post-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+}
+.single-blog-page .container {
+    max-width: 700px; /* Medium width for easy reading */
+}
+.single-blog-page .post-content h2,
+.single-blog-page .post-content h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.single-blog-page .post-content blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 1rem;
+    color: #555;
+    font-style: italic;
+    margin: 1.5rem 0;
+}
