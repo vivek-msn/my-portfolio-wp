@@ -1,38 +1,23 @@
-<?php if ( is_single() ) : // Only show on single post pages ?>
+<aside class="sidebar">
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Featured Plugins</h5>
+      <ul class="list-unstyled mb-0">
+        <li><a href="#">Duplicator</a></li>
+        <li><a href="#">WPForms</a></li>
+        <li><a href="#">SeedProd</a></li>
+      </ul>
+    </div>
+  </div>
 
-<aside id="secondary" class="sidebar widget-area">
-
-    <!-- Related Posts by Category -->
-    <section class="widget widget_related_posts">
-        <h2 class="widget-title">Related Posts</h2>
-        <ul>
-            <?php
-            global $post;
-            $categories = wp_get_post_categories($post->ID);
-            if($categories){
-                $args = array(
-                    'category__in'   => $categories,
-                    'post__not_in'   => array($post->ID), // Exclude current post
-                    'posts_per_page' => 5
-                );
-                $related_posts = get_posts($args);
-                if($related_posts){
-                    foreach($related_posts as $rpost) : ?>
-                        <li>
-                            <a href="<?php echo get_permalink($rpost->ID); ?>">
-                                <?php echo $rpost->post_title; ?>
-                            </a>
-                        </li>
-                    <?php endforeach;
-                } else {
-                    echo '<li>No related posts found.</li>';
-                }
-                wp_reset_postdata();
-            }
-            ?>
-        </ul>
-    </section>
-
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Subscribe</h5>
+      <p>Get weekly WordPress tips straight to your inbox.</p>
+      <form>
+        <input type="email" class="form-control mb-2" placeholder="Your email">
+        <button class="btn btn-primary w-100">Subscribe</button>
+      </form>
+    </div>
+  </div>
 </aside>
-
-<?php endif; ?>

@@ -19,6 +19,14 @@
     <!-- FAVICON -->
     <link rel="icon" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/favicon.png" type="image/png">
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
     <?php wp_head(); ?>
 </head>
 
@@ -37,26 +45,15 @@
               </button>
 
               <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav menu-navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#portfolio">Portfolio</a>
-                    </li> 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#blog">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
+                <?php
+                wp_nav_menu(array(
+                    'theme_location' => 'primary',
+                    'container'      => false,
+                    'menu_class'     => 'navbar-nav menu-navbar-nav',
+                    'fallback_cb'    => false,
+                    'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                ));
+                ?>
               </div>
             </div>
           </nav>

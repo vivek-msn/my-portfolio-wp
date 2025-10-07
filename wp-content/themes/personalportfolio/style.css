@@ -447,62 +447,149 @@ p{
     color: var(--primary-color);
 }
 
-/* Single Blog Page */
-.single-blog-page {
-    background-color: #f8f9fa; /* Light grey background */
-    color: #333;               /* Text color */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.8;
+
+
+/* style.css */
+.card-img-top {
+  height: 220px;          /* adjust to taste */
+  object-fit: cover;
+  border-radius: .5rem;
 }
 
-/* Post title */
-.single-blog-page .post-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #222;
+.card-body a { color: inherit; } /* keep links neutral */
+.card { border-radius: .5rem; }
+.badge { font-size: .75rem; padding: .35rem .6rem; }
+@media (max-width: 576px) {
+  .card-img-top { height: 160px; }
 }
 
-/* Meta info */
-.single-blog-page .post-meta {
-    font-size: 0.9rem;
+
+.post-content p {
+  line-height: 1.8;
+  font-size: 1rem;
 }
 
-/* Post content */
-.single-blog-page .post-content p {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
+.author-box img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
 }
 
-/* Links inside post */
-.single-blog-page .post-content a {
-    color: #007bff;
+.btn i {
+  margin-right: 4px;
+}
+.breadcrumb a {
+  text-decoration: none;
+  color: #0073aa;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.related-posts h4 {
+  border-left: 4px solid #ff6f00;
+  padding-left: 10px;
+}
+
+.related-posts .card-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.related-posts img {
+  height: 180px;
+  object-fit: cover;
+}
+.comments .commentlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.comments .comment {
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 15px;
+}
+.comments .comment-author {
+  font-weight: 600;
+}
+.comments .reply a {
+  font-size: 0.9rem;
+}
+/* Hero Section */
+.wpb-hero {
+  background-color: #ff6f00; /* WPBeginner orange */
+  color: #fff;
+}
+
+.wpb-hero h2 {
+  font-size: 1.8rem;
+}
+
+.wpb-hero h6 {
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* Trophy Animation */
+.trophy i {
+  font-size: 3rem;
+  color: #fff;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Breadcrumb Section */
+.wpb-breadcrumb {
+  background-color: #f2f2f2; /* light grey background */
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.breadcrumb a {
+  color: #ff6f00;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb {
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+header {
+    padding-bottom: 20px; /* thoda aur space de */
+}
+.navbar-brand img {
+    max-width: 150px;  /* Adjust logo size */
+}
+
+.navbar-nav a {
+    font-size: 16px; /* Adjust font size */
+}
+.navbar-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-nav li {
+    list-style: none;
+}
+
+.navbar-nav a {
     text-decoration: none;
-}
-
-.single-blog-page .post-content a:hover {
-    text-decoration: underline;
-}
-
-/* Optional: images inside blog */
-.single-blog-page .post-content img {
-    max-width: 100%;
-    height: auto;
-    margin: 1rem 0;
-}
-.single-blog-page .container {
-    max-width: 700px; /* Medium width for easy reading */
-}
-.single-blog-page .post-content h2,
-.single-blog-page .post-content h3 {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-}
-
-.single-blog-page .post-content blockquote {
-    border-left: 4px solid #ccc;
-    padding-left: 1rem;
-    color: #555;
-    font-style: italic;
-    margin: 1.5rem 0;
+    color: var(--text-black); /* Update based on your design */
+    font-weight: 500;
+    font-family: var(--primary-font);
 }

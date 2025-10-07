@@ -36,12 +36,17 @@ function personal_portfolio_scripts() {
 
 add_action('wp_enqueue_scripts', 'personal_portfolio_scripts');
 
+add_action('after_setup_theme',function() {
 // Add theme support for Featured Images
 add_theme_support('post-thumbnails');
-
+add_image_size( 'archive-thumb', 800, 450, true);
+add_theme_support( 'title-tag');
+});
 // (optional) set default image sizes
 set_post_thumbnail_size(600, 400, true);
-
+add_filter('excerpt_length', function($length){
+    return 20;
+}, 999);
 
 // function add_custom_inline_styles() {
 //     // Get the image URL
@@ -131,3 +136,24 @@ add_action('wp_footer', function () {
         echo '</div>';
     }
 });
+
+function Portfolio_theme_setup(){
+    register_nav_menus(array(
+        'primary' => __('Primary Menu', 'personal-portfolio'),
+    ));
+}
+add_action('after_setup_theme', 'Portfolio_theme_setup');
+
+function custom_bootstrap_comment_form( $fields ) {
+  $fields['author'] = '<div class="mb-3"><input id="author" name="author" type="text" class="form-control" placeholder="Your Name*" required></div>';
+  $fields['email'] = '<div class="mb-3"><input id="email" name="email" type="email" class="form-control" placeholder="Your Email*" required></div>';
+  return $fields;
+}
+add_filter( 'comment_form_default_fields', 'custom_bootstrap_comment_form' );
+
+function custom_bootstrap_comment_textarea( $args ) {
+  $args['comment_field'] = '<div class="mb-3"><textarea id="comment" name="comment" class="form-control" rows="4" placeholder="Your Comment*" required></textarea></div>';
+  $args['class_submit'] = 'btn btn-primary px-4';
+  return $args;
+}
+add_filter( 'comment_form_defaults', 'custom_bootstrap_comment_textarea' );
