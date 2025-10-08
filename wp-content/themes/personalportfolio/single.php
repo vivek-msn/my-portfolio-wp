@@ -129,7 +129,7 @@
         <?php endif; ?>
 
                 <!-- Comments Section -->
-        <section class="comments mt-5">
+        <section class="comments mt-0">
           <div class="bg-white shadow-sm rounded-4 p-4">
             <h4 class="fw-bold mb-4"><i class="bi bi-chat-dots"></i> Comments</h4>
             <?php
