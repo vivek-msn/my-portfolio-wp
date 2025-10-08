@@ -27,8 +27,8 @@ get_header();?>
                     </div>
                 </div>
                 <div class="col-lg-5 order-lg-2 order-1">
-                    <div class="top-right-img">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/home-right.webp" class="img-fluid">
+                    <div class="top-right-img overflow-hidden rounded-circle">
+                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/WorldCamp.jpeg" class="img-fluid zoom-img w-100 h-100 rounded-circle border border-secondary p-1" alt="Circular Frame">
                     </div>
                 </div>
             </div>

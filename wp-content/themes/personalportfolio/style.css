@@ -592,4 +592,18 @@ header {
     color: var(--text-black); /* Update based on your design */
     font-weight: 500;
     font-family: var(--primary-font);
+    text-transform: uppercase;
+}
+.navbar-logo:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+.zoom-img {
+  transition: transform 0.3s ease;
+  object-fit: cover;
+  object-position: center;
+}
+.top-right-img{
+    width: 500px;
+    height: 500px;
 }

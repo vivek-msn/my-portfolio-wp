@@ -36,10 +36,13 @@
     <header class="header_wrapper">
         <nav class="navbar navbar-expand-lg fixed-top py-1">
             <div class="container">
-              <a class="navbar-brand" href="<?php echo home_url(); ?>">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/logo.png" alt="logo" class="img-fluid">
+              <a class="navbar-brand navbar-logo" href="<?php echo home_url(); ?>">
+                <!-- Icon + Name Logo -->
+                <div style="display: flex; align-items: center; font-family: 'Poppins', sans-serif; color: #333;">
+                  <span style="font-size: 1.8rem; color: #007bff; margin-right: 8px;">&#x3C;/&#x3E;</span>
+                  <span style="font-size: 1.2rem; font-weight: 600;">Vivek Saini</span>
+                </div>
               </a>
-
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
