@@ -41,33 +41,14 @@ add_action('after_setup_theme',function() {
 add_theme_support('post-thumbnails');
 add_image_size( 'archive-thumb', 800, 450, true);
 add_theme_support( 'title-tag');
+// Enable HTML5 markup for forms, galleries, captions
+add_theme_support('html5', array('search-form', 'comment-form', 'gallery', 'caption'));
 });
 // (optional) set default image sizes
 set_post_thumbnail_size(600, 400, true);
 add_filter('excerpt_length', function($length){
     return 20;
 }, 999);
-
-// function add_custom_inline_styles() {
-//     // Get the image URL
-//     $image_url = get_stylesheet_directory_uri() . '/assets/img/subscribe-bg.webp';
-
-//     // Define your custom CSS
-//     $custom_css = "
-//         .footer_wrapper .newsletter {
-//             width: 100%;
-//             height: 100%;
-//             background-image: url('$image_url');
-//             background-repeat: no-repeat;
-//             background-size: cover;
-//             background-position: center center;
-//             padding: 9.375rem 0;
-//         }
-//     ";
-
-//     // Add the inline CSS to the main theme stylesheet
-//     wp_add_inline_style('portfolio-theme-style', $custom_css);
-// }
 
 // // Hook the function to wp_enqueue_scripts
 // add_action('wp_enqueue_scripts', 'add_custom_inline_styles');
@@ -157,3 +138,256 @@ function custom_bootstrap_comment_textarea( $args ) {
   return $args;
 }
 add_filter( 'comment_form_defaults', 'custom_bootstrap_comment_textarea' );
+
+
+// === 1. Register Custom Post Type and Taxonomy ===
+function register_portfolio_post_type() {
+    register_post_type('portfolio', [
+        'label' => 'Portfolio',
+        'public' => true,
+        'supports' => ['title', 'editor', 'thumbnail'],
+        'has_archive' => true,
+        'rewrite' => ['slug' => 'portfolio']
+    ]);
+
+    register_taxonomy('project-category', 'portfolio', [
+        'label' => 'Project Categories',
+        'hierarchical' => true,
+        'public' => true,
+        'rewrite' => ['slug' => 'project-category']
+    ]);
+}
+add_action('init', 'register_portfolio_post_type');
+
+
+// === 2. Enqueue JS for AJAX ===
+function portfolio_ajax_scripts() {
+    wp_enqueue_script(
+        'portfolio-ajax',
+        get_stylesheet_directory_uri() . '/assets/js/portfolio-ajax.js',
+        ['jquery'],
+        null,
+        true
+    );
+
+    wp_localize_script('portfolio-ajax', 'ajax_object', [
+        'ajax_url' => admin_url('admin-ajax.php')
+    ]);
+}
+add_action('wp_enqueue_scripts', 'portfolio_ajax_scripts');
+
+
+// === 3. AJAX Handler (Backend) ===
+function load_portfolio_projects_ajax() {
+    $term_slug = sanitize_text_field($_POST['term']);
+
+    $query = new WP_Query([
+        'post_type' => 'portfolio',
+        'tax_query' => [
+            [
+                'taxonomy' => 'project-category',
+                'field' => 'slug',
+                'terms' => $term_slug
+            ]
+        ]
+    ]);
+
+    if ($query->have_posts()) {
+        echo '<div class="row">';
+        while ($query->have_posts()) {
+            $query->the_post();
+            ?>
+            <div class="col-lg-4 col-md-6 mb-4">
+               <div class="card h-100 shadow-sm">
+                    <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail('large', ['class' => 'card-img-top']); ?>
+                    <?php endif; ?>
+                    <div class="card-body">
+                        <h5 class="card-title"><?php the_title(); ?></h5>
+                        <p class="card-text"><?php echo wp_trim_words(get_the_content(), 20); ?></p>
+                        <a href="<?php the_permalink(); ?>" class="btn btn-outline-primary btn-sm mt-2">View Project</a>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+        echo '</div>';
+    } else {
+        echo '<p>No projects found.</p>';
+    }
+
+    wp_reset_postdata();
+    wp_die();
+}
+add_action('wp_ajax_load_portfolio_projects', 'load_portfolio_projects_ajax');
+add_action('wp_ajax_nopriv_load_portfolio_projects', 'load_portfolio_projects_ajax');
+
+// ============================
+//  SEO META TAGS GENERATOR
+// ============================
+
+function portfolio_seo_meta_tags() {
+    if ( is_singular() ) {
+        global $post;
+        $title       = get_the_title( $post->ID );
+        $description = wp_strip_all_tags( get_the_excerpt( $post->ID ) );
+        $url         = get_permalink( $post->ID );
+
+        // Featured image or fallback
+        if ( has_post_thumbnail( $post->ID ) ) {
+            $image = get_the_post_thumbnail_url( $post->ID, 'full' );
+        } else {
+            $image = get_stylesheet_directory_uri() . '/assets/img/default-thumbnail.jpg';
+        }
+
+        // Open Graph & Twitter meta
+        echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+        echo '<meta property="og:title" content="' . esc_attr( $title ) . '">' . "\n";
+        echo '<meta property="og:description" content="' . esc_attr( $description ) . '">' . "\n";
+        echo '<meta property="og:type" content="article">' . "\n";
+        echo '<meta property="og:url" content="' . esc_url( $url ) . '">' . "\n";
+        echo '<meta property="og:image" content="' . esc_url( $image ) . '">' . "\n";
+
+        // Twitter Card
+        echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+        echo '<meta name="twitter:title" content="' . esc_attr( $title ) . '">' . "\n";
+        echo '<meta name="twitter:description" content="' . esc_attr( $description ) . '">' . "\n";
+        echo '<meta name="twitter:image" content="' . esc_url( $image ) . '">' . "\n";
+    } 
+    else {
+        // Fallback for homepage or archives
+        echo '<meta name="description" content="' . get_bloginfo('description') . '">' . "\n";
+        echo '<meta property="og:title" content="' . get_bloginfo('name') . '">' . "\n";
+        echo '<meta property="og:description" content="' . get_bloginfo('description') . '">' . "\n";
+        echo '<meta property="og:type" content="website">' . "\n";
+        echo '<meta property="og:url" content="' . esc_url( home_url() ) . '">' . "\n";
+        echo '<meta property="og:image" content="' . esc_url( get_stylesheet_directory_uri() . '/assets/img/default-thumbnail.jpg' ) . '">' . "\n";
+    }
+}
+add_action( 'wp_head', 'portfolio_seo_meta_tags', 5 );
+
+// ============================
+// REGISTER SIDEBAR WIDGET AREA
+// ============================
+function portfolio_register_sidebar() {
+    register_sidebar( array(
+        'name'          => __( 'Main Sidebar', 'portfolio' ),
+        'id'            => 'main-sidebar',
+        'description'   => __( 'Widgets added here will appear in the blog sidebar.', 'portfolio' ),
+        'before_widget' => '<section id="%1$s" class="widget %2$s card mb-4 shadow-sm" itemscope itemtype="https://schema.org/WebPageElement"><div class="card-body">',
+        'after_widget'  => '</div></section>',
+        'before_title'  => '<h2 class="card-title h5">',
+        'after_title'   => '</h2>',
+    ) );
+}
+add_action( 'widgets_init', 'portfolio_register_sidebar' );
+
+
+// ===========================
+// CUSTOM FEATURED PLUGINS WIDGET
+// ===========================
+class Featured_Plugins_Widget extends WP_Widget {
+
+    function __construct() {
+        parent::__construct(
+            'featured_plugins_widget',
+            __('Featured Plugins', 'portfolio'),
+            array( 'description' => __( 'Display your featured WordPress plugins.', 'portfolio' ) )
+        );
+    }
+
+    public function widget( $args, $instance ) {
+        echo $args['before_widget'];
+        $title = apply_filters( 'widget_title', $instance['title'] ?? 'Featured Plugins' );
+        $plugins = explode( "\n", $instance['plugins'] ?? '' );
+
+        if ( ! empty( $title ) ) {
+            echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
+        }
+
+        if ( ! empty( $plugins ) ) {
+            echo '<ul class="list-unstyled mb-0">';
+            foreach ( $plugins as $plugin ) {
+                $plugin = trim( $plugin );
+                if ( ! empty( $plugin ) ) {
+                    echo '<li><a href="#">' . esc_html( $plugin ) . '</a></li>';
+                }
+            }
+            echo '</ul>';
+        }
+
+        echo $args['after_widget'];
+    }
+
+    public function form( $instance ) {
+        $title = $instance['title'] ?? 'Featured Plugins';
+        $plugins = $instance['plugins'] ?? "Duplicator\nWPForms\nSeedProd";
+        ?>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
+            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'plugins' ); ?>">Plugins (one per line):</label>
+            <textarea class="widefat" rows="5" id="<?php echo $this->get_field_id( 'plugins' ); ?>" name="<?php echo $this->get_field_name( 'plugins' ); ?>"><?php echo esc_textarea( $plugins ); ?></textarea>
+        </p>
+        <?php
+    }
+}
+
+// ===========================
+// CUSTOM SUBSCRIBE WIDGET
+// ===========================
+class Subscribe_Widget extends WP_Widget {
+
+    function __construct() {
+        parent::__construct(
+            'subscribe_widget',
+            __('Subscribe Form', 'portfolio'),
+            array( 'description' => __( 'Display a simple subscribe form.', 'portfolio' ) )
+        );
+    }
+
+    public function widget( $args, $instance ) {
+        echo $args['before_widget'];
+        $title = apply_filters( 'widget_title', $instance['title'] ?? 'Subscribe' );
+        $desc = $instance['desc'] ?? 'Get weekly WordPress tips straight to your inbox.';
+
+        if ( ! empty( $title ) ) {
+            echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
+        }
+        echo '<p>' . esc_html( $desc ) . '</p>';
+        ?>
+        <form>
+            <label for="subscribe-email" class="visually-hidden">Email address</label>
+            <input type="email" id="subscribe-email" class="form-control mb-2" placeholder="Your email" required>
+            <button class="btn btn-primary w-100">Subscribe</button>
+        </form>
+        <?php
+        echo $args['after_widget'];
+    }
+
+    public function form( $instance ) {
+        $title = $instance['title'] ?? 'Subscribe';
+        $desc = $instance['desc'] ?? 'Get weekly WordPress tips straight to your inbox.';
+        ?>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
+            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'desc' ); ?>">Description:</label>
+            <textarea class="widefat" rows="3" id="<?php echo $this->get_field_id( 'desc' ); ?>" name="<?php echo $this->get_field_name( 'desc' ); ?>"><?php echo esc_textarea( $desc ); ?></textarea>
+        </p>
+        <?php
+    }
+}
+
+// ===========================
+// REGISTER BOTH CUSTOM WIDGETS
+// ===========================
+function portfolio_register_custom_widgets() {
+    register_widget( 'Featured_Plugins_Widget' );
+    register_widget( 'Subscribe_Widget' );
+}
+add_action( 'widgets_init', 'portfolio_register_custom_widgets' );

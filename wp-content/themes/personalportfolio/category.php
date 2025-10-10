@@ -3,6 +3,13 @@
 <section class="category-archive py-5">
     <div class="container">
         <div class="row">
+            <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb bg-light p-3 rounded-3 shadow-sm">
+                <li class="breadcrumb-item"><a href="<?php echo home_url(); ?>">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><?php single_cat_title(); ?></li>
+            </ol>
+            </nav>
+
             <!-- Category Title & Description -->
             <div class="col-12 text-center mb-5">
                 <?php 
@@ -25,45 +32,45 @@
 
             <!-- Posts Loop -->
             <?php if(have_posts()) : ?>
-                <?php while(have_posts()) : the_post(); ?>
-                    <div class="col-12 mb-4">
-                        <div class="card mb-4  flex-row rounded-0 border-0 p-0">
-                             <div class="col-md-3 mb-3 mb-md-0"> <!-- 4/12 on desktop, full width on mobile -->
-                            <!-- Post Thumbnail -->
-                            <?php if(has_post_thumbnail()): ?>
-                                <?php the_post_thumbnail('full', ['class'=>'img-fluid']); ?>
-                            <?php else: ?>
-                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/blog/blog.webp" 
-                                     alt="blog" 
-                                     class="img-fluid">
-                            <?php endif; ?>
-                            </div>
-                            <div class="col-md-8 p-3">
-                                <h5 class="text-dark mb-0"><?php the_title(); ?></h5>
-                                <div class="border_line"></div>
-                                <p class="text-dark"><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
-                                <a href="<?php the_permalink(); ?>" class="btn btn-outline-dark btn-sm mt-2">Read More</a>
-                            </div>
+                <div class="row g-4">
+                    <?php while(have_posts()) : the_post(); ?>
+                        <div class="col-12">
+                            <article class="card flex-row flex-wrap border-0 rounded-4 shadow-sm overflow-hidden" itemscope itemtype="https://schema.org/BlogPosting">
+                                <div class="col-md-3 p-0">
+                                    <?php if(has_post_thumbnail()): ?>
+                                        <?php the_post_thumbnail('medium', ['class'=>'img-fluid', 'alt'=>get_the_title(), 'itemprop'=>'image']); ?>
+                                    <?php else: ?>
+                                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/blog/blog.webp" alt="blog" class="img-fluid">
+                                    <?php endif; ?>
+                                </div>
+                                <div class="col-md-9 p-4">
+                                    <header>
+                                        <h2 class="h5 mb-2" itemprop="headline"><a href="<?php the_permalink(); ?>" class="text-dark text-decoration-none"><?php the_title(); ?></a></h2>
+                                    </header>
+                                    <p class="text-muted mb-2" itemprop="datePublished"><?php echo get_the_date(); ?></p>
+                                    <p itemprop="description"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
+                                    <a href="<?php the_permalink(); ?>" class="btn btn-outline-dark btn-sm mt-2">Read More</a>
+                                </div>
+                            </article>
                         </div>
-                    </div>
-                <?php endwhile; ?>
+                    <?php endwhile; ?>
+                </div>
+            <?php else: ?>
+                <p class="text-center text-white">No posts found in this category.</p>
+            <?php endif; ?>
 
                 <!-- Pagination -->
-                <div class="col-12 mt-1">
+               <nav aria-label="Page navigation" class="mt-4">
                     <?php
                         the_posts_pagination(array(
                             'mid_size'  => 2,
                             'prev_text' => __('« Prev', 'textdomain'),
                             'next_text' => __('Next »', 'textdomain'),
+                            'screen_reader_text' => ' ',
                         ));
                     ?>
-                </div>
-
-            <?php else: ?>
-                <p class="text-center text-white">No posts found in this category.</p>
-            <?php endif; ?>
-
-        </div>
+                </nav>
+            </div>
     </div>
 </section>
 

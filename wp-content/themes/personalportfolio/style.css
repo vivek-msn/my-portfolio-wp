@@ -606,4 +606,9 @@ header {
 .top-right-img{
     width: 500px;
     height: 500px;
+    
+}
+
+.top-right-img img:hover {
+    transform: scale(1.2); /* zoomed size on hover */
 }
