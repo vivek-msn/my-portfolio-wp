@@ -159,47 +159,20 @@ function register_portfolio_post_type() {
 }
 add_action('init', 'register_portfolio_post_type');
 
-// === Add Custom Meta Box for Portfolio URL ===
-function portfolio_add_custom_url_meta_box() {
-    add_meta_box(
-        'portfolio_custom_url_box',             // Unique ID
-        'Custom Project URL',                   // Box title
-        'portfolio_custom_url_meta_box_html',   // Callback function
-        'portfolio',                            // Post type (CPT name)
-        'normal',                               // Context
-        'default'                               // Priority
-    );
-}
-add_action('add_meta_boxes', 'portfolio_add_custom_url_meta_box');
+// Add meta box
+add_action('add_meta_boxes', function() {
+    add_meta_box('portfolio_custom_url_box', 'Custom Project URL', function($post){
+        $value = get_post_meta($post->ID, '_custom_project_url', true);
+        echo '<input type="url" name="custom_project_url_field" value="'.esc_attr($value).'" class="widefat" placeholder="https://example.com/project-link">';
+    }, 'portfolio', 'normal', 'default');
+});
 
-// === Display input field inside meta box ===
-function portfolio_custom_url_meta_box_html($post) {
-    $value = get_post_meta($post->ID, '_custom_project_url', true);
-    ?>
-    <label for="custom_project_url_field"><strong>Project URL:</strong></label>
-    <input 
-        type="url" 
-        name="custom_project_url_field" 
-        id="custom_project_url_field" 
-        value="<?php echo esc_attr($value); ?>" 
-        class="widefat" 
-        placeholder="https://example.com/project-link"
-    />
-    <p class="description">Enter an external or custom link for this project.</p>
-    <?php
-}
-
-// === Save meta box data ===
-function portfolio_save_custom_url_meta_box($post_id) {
-    if (array_key_exists('custom_project_url_field', $_POST)) {
-        update_post_meta(
-            $post_id,
-            '_custom_project_url',
-            sanitize_text_field($_POST['custom_project_url_field'])
-        );
+// Save meta box
+add_action('save_post_portfolio', function($post_id){
+    if(isset($_POST['custom_project_url_field'])){
+        update_post_meta($post_id, '_custom_project_url', sanitize_text_field($_POST['custom_project_url_field']));
     }
-}
-add_action('save_post_portfolio', 'portfolio_save_custom_url_meta_box');
+});
 
 
 // === 2. Enqueue JS for AJAX ===
@@ -247,19 +220,15 @@ function load_portfolio_projects_ajax() {
                     <div class="card-body">
                         <h5 class="card-title"><?php the_title(); ?></h5>
                         <p class="card-text"><?php echo wp_trim_words(get_the_content(), 20); ?></p>
-                        <a href="<?php 
-                            // Get custom URL from meta field 'custom_project_url'
-                            $custom_url = get_post_meta(get_the_ID(), 'custom_project_url', true);
-
-                            // If custom URL exists, use it; otherwise fallback to default permalink
-                            echo $custom_url ? esc_url($value) : get_permalink();
-                        ?>" class="btn btn-outline-primary btn-sm mt-2" target="_blank">
+                        <?php $custom_url = get_post_meta(get_the_ID(), '_custom_project_url', true);
+                        ?>
+                        <a href="<?php echo $custom_url ? esc_url($custom_url) : get_permalink(); ?>" class="btn btn-outline-primary btn-sm mt-2" target="_blank">
                             View Project
                         </a>
                     </div>
                 </div>
             </div>
-            <?php
+        <?php
         }
         echo '</div>';
     } else {
