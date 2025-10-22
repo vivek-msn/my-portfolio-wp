@@ -252,7 +252,7 @@ function load_portfolio_projects_ajax() {
                             $custom_url = get_post_meta(get_the_ID(), 'custom_project_url', true);
 
                             // If custom URL exists, use it; otherwise fallback to default permalink
-                            echo $custom_url ? esc_url($custom_url) : get_permalink();
+                            echo $custom_url ? esc_url($value) : get_permalink();
                         ?>" class="btn btn-outline-primary btn-sm mt-2" target="_blank">
                             View Project
                         </a>
