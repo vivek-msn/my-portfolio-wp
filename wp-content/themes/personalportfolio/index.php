@@ -19,7 +19,7 @@ get_header();?>
             <div class="row">
                 <div class="col-lg-7 order-lg-1 order-2 banner-content">
                     <h2 class="text-uppercase position-relative">Hello</h2>
-                    <h1 class="text-uppercase">I am Vivek Saini test</h1>
+                    <h1 class="text-uppercase">I am Vivek Saini test1</h1>
                     <h5 class="text-uppercase">Full Stack WordPress Developer</h5>
                     <div class="mt-5">
                         <a class="main-btn primary-btn" href="#">Hire Me</a>
